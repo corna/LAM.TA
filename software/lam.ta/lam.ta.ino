@@ -34,8 +34,8 @@ const RGB rgb_pins = { .red = red_pin, .green = green_pin, .blue = blue_pin };
 
 const uint8_t finalBrightnessCycles = 20;
 
-const uint16_t buttonPressedTimeout = 250;
-const uint16_t buttonDoubleclickedTimeout = 150;
+const uint16_t buttonPressedTimeout = 350;
+const uint16_t buttonDoubleclickedTimeout = 250;
 
 RGBFader *fader;
 
@@ -89,7 +89,7 @@ uint8_t num_touched(uint16_t touchWord) {
     4,  //1111
   };
   
-  return pgm_read_byte(onesLookup + (touchbuttons.touched() & 0x000F));
+  return pgm_read_byte(onesLookup + (touchWord & 0x000F));
 }
 
 void touch_trigger(uint8_t touches) {
