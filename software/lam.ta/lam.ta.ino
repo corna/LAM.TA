@@ -21,8 +21,11 @@
 #include <avr/interrupt.h>
 #include <util/atomic.h>
 
-#include <Fsm.h>
 #include <Adafruit_MPR121.h>
+
+//Due to a timing bug (see https://github.com/jonblack/arduino-fsm/pull/5)
+//old versions (<= 2.1.0) of arduino-fsm don't work correctly
+#include <Fsm.h>
 
 #include "RGBFader/RGBFader.h"
 
