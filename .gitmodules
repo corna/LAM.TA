@@ -1,0 +1,3 @@
+[submodule "software/lam.ta/RGBFader"]
+	path = software/lam.ta/RGBFader
+	url = https://github.com/polifactory-polimi/RGBFader.git

@@ -24,7 +24,7 @@
 #include <Fsm.h>
 #include <Adafruit_MPR121.h>
 
-#include "RGBFader.h"
+#include "RGBFader/RGBFader.h"
 
 const uint8_t red_pin = 10;
 const uint8_t green_pin = 11;
