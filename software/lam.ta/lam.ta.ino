@@ -18,8 +18,6 @@
  */
 
 #include <stdint.h>
-#include <avr/interrupt.h>
-#include <util/atomic.h>
 
 #include <Adafruit_MPR121.h>
 
@@ -162,9 +160,7 @@ void loop() {
   uint16_t currentTouches;
   
   for (uint8_t i = 0; i < 16; i++) {
-    ATOMIC_BLOCK(ATOMIC_FORCEON) {
-      fsm.check_timer();
-    }
+    fsm.check_timer();
 
     currentTouches = touchbuttons.touched();
     if (currentTouches != lastTouches) {
@@ -182,6 +178,7 @@ void pressed() {
   Serial.println("Pressed");
 
   if (poweron) {
+    fader->setBrightnessSpeed(3);
     if (fader->getBrightnessTarget() == 0)
       fader->setBrightnessCycle(255, 0, finalBrightnessCycles);
     else
@@ -207,7 +204,7 @@ void clicked() {
     poweron = false;
   }
   else {
-    fader->setBrightnessSpeed(3);
+    fader->setBrightnessSpeed(9);
     fader->setBrightness(brightness);
     poweron = true;
   }
