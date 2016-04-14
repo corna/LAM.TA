@@ -111,7 +111,6 @@ void touch_trigger(uint8_t touches) {
   }
 }
 
-
 void setup() {
   Serial.begin(115200);
   
@@ -149,8 +148,17 @@ void setup() {
     delay(1000);
   }
   touchbuttons.writeRegister(MPR121_ECR, 0x00);  //Stop the device
-  touchbuttons.writeRegister(MPR121_ECR, 0x84);  //Enable only channels 0~3
-  touchbuttons.setThresholds(12, 6);
+  touchbuttons.setThresholds(8, 4);
+  touchbuttons.writeRegister(MPR121_DEBOUNCE, 0b01110111);  //Touch debounce (7 touches)
+  touchbuttons.writeRegister(MPR121_MHDR, 48);  //Maximum half delta (rising)
+  touchbuttons.writeRegister(MPR121_NHDR, 24);  //Noise half delta (rising)
+  touchbuttons.writeRegister(MPR121_NCLR, 48);  //Noise count limit (rising)
+  touchbuttons.writeRegister(MPR121_FDLR, 192); //Filter delay count limit (rising)
+  touchbuttons.writeRegister(MPR121_MHDF, 48);  //Maximum half delta (falling)
+  touchbuttons.writeRegister(MPR121_NHDF, 72);  //Noise half delta (falling)
+  touchbuttons.writeRegister(MPR121_NCLF, 12);  //Noise count limit (falling)
+  touchbuttons.writeRegister(MPR121_FDLF, 192); //Filter delay count limit (falling)
+  touchbuttons.writeRegister(MPR121_ECR, 0x9C); //Enable only channels 0~3, 18 samples on the 2nd level filter
 
   Serial.println("LAM.TA is ready!!");
 }
@@ -216,11 +224,11 @@ void clicked() {
 
 void doubleclicked() {
   Serial.println("Double clicked");
-  if (poweron) {
+  //if (poweron) {  //Double-clicking should work also when powered off
     fader->goOnColorIndex(7);
     fader->setBrightness(255);
     fader->freezeBrightness = false;
-  }
+  //}
 }
 
 void multipressed() {
