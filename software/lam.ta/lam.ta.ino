@@ -225,6 +225,7 @@ void clicked() {
 void doubleclicked() {
   Serial.println("Double clicked");
   //if (poweron) {  //Double-clicking should work also when powered off
+    poweron = true;
     fader->goOnColorIndex(7);
     fader->setBrightness(255);
     fader->freezeBrightness = false;
